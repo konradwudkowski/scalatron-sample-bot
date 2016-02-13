@@ -19,4 +19,4 @@ package co.uk.hackthetower.commands.server
   *
   * The control function is expected to return a valid response, which may consist of zero or more commands separated by a pipe (|) character. The available commands are listed in the section Opcodes of Plugin-to-Server Commands.
   */
-case class React(generation: Int, name: String, time : Int, view: String, energy: String, master: (Int, Int), collision: (Int, Int), slaves: Int, state: Map[String, String]) extends ServerCommand
+case class React(generation: Int, name: String, time : Int, view: String, energy: String, master: Option[(Int, Int)], collision: Option[(Int, Int)], slaves: Int, state: Map[String, String]) extends ServerCommand

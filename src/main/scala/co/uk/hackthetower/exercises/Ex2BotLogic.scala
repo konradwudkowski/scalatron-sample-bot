@@ -1,8 +1,12 @@
 package co.uk.hackthetower.exercises
 
 import cats.data.Xor
-import co.uk.hackthetower.commands.bot.BotCommands
+import co.uk.hackthetower.commands.bot._
 import co.uk.hackthetower.commands.server.ServerCommand
+import cats.data.Xor.{Left,Right}
+import co.uk.hackthetower.commands.server._
+
+
 
 /**
   * Second exercise: Implement method 'processServerCommand'
@@ -29,5 +33,16 @@ import co.uk.hackthetower.commands.server.ServerCommand
   */
 object Ex2BotLogic {
 
-  def processServerCommand(command: Xor[String, ServerCommand]): Xor[String, List[BotCommands]] = Xor.left("Not sure what to do")
+  def processServerCommand(command: Xor[String, ServerCommand]): Xor[String, List[BotCommands]] = {
+    command match {
+      case Left(invalid) => Left("wrong command")
+      case Right(cmd) => cmd match {
+        case Goodbye(energy) =>  Right(List(Log(s"I have $energy of energy")))
+        case Welcome(name, apocalypse, round, maxslaves) => Right(List(Log("Welcome to you too")))
+        case React(generation,name,time,view,energy,master,collision,slaves,state) =>
+          Right(List(Move(1,1)))
+      }
+    }
+  }
+
 }
